@@ -1,14 +1,12 @@
-import Typography from "@mui/material/Typography";
-import { Box, Container, styled } from "@mui/system";
-import React from "react";
-import assest from "@/json/assest";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { AllCategoryDtl, CategoryRoot } from "@/interface/catresp.interface";
 import { getCategory } from "@/api/functions/shop.api";
 import SingleCard from "@/components/SingleCard";
+import { AllCategoryDtl } from "@/interface/catresp.interface";
+import assest from "@/json/assest";
 import Wrapper from "@/layout/wrapper/Wrapper";
+import { Box, Container, styled } from "@mui/system";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -107,7 +105,7 @@ const sliderSettings = {
 };
 
 const Home = ({ allcategory }: categoryList) => {
-
+  console.log(allcategory, "allcategory");
   return allcategory ? (
     <Wrapper>
       <StyledContainer>
@@ -116,16 +114,17 @@ const Home = ({ allcategory }: categoryList) => {
             <Container fixed>
               <Box className="clientfed-slider">
                 <Slider {...sliderSettings}>
-                  {Array.isArray(allcategory) && allcategory?.map((item, index) => (
-                    <Box className="singlewrapslider" key={index}>
-                      <SingleCard
-                        cat_thumbnail={`${item?.cat_thumbnail as string }`}
-                        cat_id={item.cat_id}
-                        slug={item.slug}
-                        title={item?.title}
-                      />
-                    </Box>
-                  ))}
+                  {Array.isArray(allcategory) &&
+                    allcategory?.map((item, index) => (
+                      <Box className="singlewrapslider" key={index}>
+                        <SingleCard
+                          cat_thumbnail={`${item?.cat_thumbnail as string}`}
+                          cat_id={item.cat_id}
+                          slug={item.slug}
+                          title={item?.title}
+                        />
+                      </Box>
+                    ))}
                 </Slider>
               </Box>
             </Container>
@@ -144,7 +143,7 @@ export const getServerSideProps = async () => {
   console.log("all", resp);
 
   return {
-    props: { allcategory: resp }
+    props: { allcategory: resp.all_category_dtls || [] }
   };
 };
 export default Home;
