@@ -1,5 +1,5 @@
 import { AllCategoryDtl } from "@/interface/catresp.interface";
-import { Rating, Typography } from "@mui/material";
+import { Paper, Rating, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import Image from "next/image";
 import React from "react";
@@ -38,25 +38,27 @@ interface cardProps {
 export default function SingleCard(props: AllCategoryDtl) {
   return (
     <SinglewrapcrtFeed>
-      <Box className="mainwrap-singlcrtfeed">
-        <Box className="top-partInnrimg">
-          <i>
+      <Paper>
+        <Box className="mainwrap-singlcrtfeed">
+          <Box className="top-partInnrimg" sx={{ m: "auto" }}>
             <Image
               src={props?.cat_thumbnail}
-              width={290}
+              width={300}
               height={200}
+              style={{ margin: "auto" }}
               alt="userimage"
             />
-          </i>
-          <Box className="clientnameStart">
-            <Typography variant="caption">{props?.title}</Typography>
-            <Box className="star-rating">
-              <Typography>{props?.slug}</Typography>
-              {/* <Image src={props.clientstart} width={108} height={16} alt='starticon'/> */}
-            </Box>
+          </Box>
+          <Box className="bottom-partTxt" sx={{ textAlign: "center" }}>
+            <Typography
+              variant="caption"
+              sx={{ color: "black", fontSize: "16px" }}
+            >
+              {props?.title}
+            </Typography>
           </Box>
         </Box>
-      </Box>
+      </Paper>
     </SinglewrapcrtFeed>
   );
 }

@@ -1,12 +1,10 @@
 import { getCategory } from "@/api/functions/shop.api";
-import SingleCard from "@/components/SingleCard";
+import SingleCard from "@/components/SingleSlider/SingleCard";
 import { AllCategoryDtl } from "@/interface/catresp.interface";
 import assest from "@/json/assest";
 import Wrapper from "@/layout/wrapper/Wrapper";
 import { Box, Container, styled } from "@mui/system";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -74,15 +72,15 @@ const ClientfeedWrapper = styled(Box)`
 
 const sliderSettings = {
   arrows: true,
-  slidesToShow: 2,
+  slidesToShow: 3,
   slidesToScroll: 1,
   infinite: true,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         infinite: true,
         dots: false
       }
@@ -103,6 +101,10 @@ const sliderSettings = {
     }
   ]
 };
+
+interface categoryList {
+  allcategory: AllCategoryDtl[];
+}
 
 const Home = ({ allcategory }: categoryList) => {
   console.log(allcategory, "allcategory");
@@ -135,9 +137,6 @@ const Home = ({ allcategory }: categoryList) => {
   ) : null;
 };
 
-interface categoryList {
-  allcategory: AllCategoryDtl[];
-}
 export const getServerSideProps = async () => {
   const resp = await getCategory();
   console.log("all", resp);
@@ -146,4 +145,5 @@ export const getServerSideProps = async () => {
     props: { allcategory: resp.all_category_dtls || [] }
   };
 };
+
 export default Home;

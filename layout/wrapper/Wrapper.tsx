@@ -42,7 +42,7 @@ const Wrapper = (props: wrapperProps) => {
 
   routerText.shift();
   const favText = routerText.join("").toString().toUpperCase();
-  const projectName = "Procell";
+  const projectName = "Shop Filter";
 
   useOnlineStatus();
 
