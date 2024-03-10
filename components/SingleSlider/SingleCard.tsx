@@ -2,6 +2,7 @@ import { AllCategoryDtl } from "@/interface/catresp.interface";
 import { Paper, Rating, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 const SinglewrapcrtFeed = styled(Box)`
   .mainwrap-singlcrtfeed {
@@ -32,31 +33,39 @@ const SinglewrapcrtFeed = styled(Box)`
   }
 `;
 interface cardProps {
-  clientimg: string;
-  clientname: string;
+  img: string;
+  name: string;
+  price: string;
+  offerpirce: string;
+  description: string;
+  prdlink: string;
 }
-export default function SingleCard(props: AllCategoryDtl) {
+export default function SingleCard(props: cardProps) {
+  const router = useRouter();
   return (
     <SinglewrapcrtFeed>
       <Paper>
         <Box className="mainwrap-singlcrtfeed">
           <Box className="top-partInnrimg" sx={{ m: "auto" }}>
             <Image
-              src={props?.cat_thumbnail}
+              src={props?.img || ""}
               width={300}
               height={200}
               style={{ margin: "auto" }}
-              alt="userimage"
+              alt="product image"
             />
           </Box>
+          <Box>{/* <Typography>{props.prdlink}</Typography> */}</Box>
           <Box className="bottom-partTxt" sx={{ textAlign: "center" }}>
             <Typography
               variant="caption"
               sx={{ color: "black", fontSize: "16px" }}
+              onClick={() => router.push(`${props.prdlink}`)}
             >
-              {props?.title}
+              {props?.name}
             </Typography>
           </Box>
+          <Typography>${props.price}</Typography>
         </Box>
       </Paper>
     </SinglewrapcrtFeed>

@@ -22,7 +22,8 @@ export const endpoints = {
   },
   shops: {
     category: "get-all-product-category-api",
-    categoryDetails: "get-all-product-by-category-id-api"
+    categoryDetails: "get-all-product-by-category-id-api",
+    products: 'prduct-set'
   }
 };
 

@@ -1,10 +1,20 @@
-import { getCategory } from "@/api/functions/shop.api";
+import {
+  getCategory,
+  getCategoryDetails,
+  getCategoryWiseDetails
+} from "@/api/functions/shop.api";
+import ShopCard from "@/components/ShopCard/ShopCard";
 import SingleCard from "@/components/SingleSlider/SingleCard";
+import SlickCarousel from "@/components/SlickSlider/SlickCarousel";
 import { AllCategoryDtl } from "@/interface/catresp.interface";
 import assest from "@/json/assest";
 import Wrapper from "@/layout/wrapper/Wrapper";
-import { Box, Container, styled } from "@mui/system";
+import { Box, Container, styled } from "@mui/material";
 import Slider from "react-slick";
+import { CategoryRoot } from "@/interface/catresp.interface";
+import styles from "@/styles/pages/home.module.scss";
+import { AllCatWiseRoot } from "@/interface/allcat.interface";
+import { CatWiseRoot } from "@/interface/products.interface";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -12,63 +22,15 @@ const StyledContainer = styled("section")`
   padding: 20px;
 `;
 
-const ClientfeedWrapper = styled(Box)`
-  padding: 80px 0;
-  @media (max-width: 1199px) {
-    padding: 60px 0;
-  }
-  @media (max-width: 600px) {
-    padding: 40px 0;
-  }
-  .cientfeedback-sec {
-    position: relative;
-    .clientfed-slider {
-      position: relative;
-      margin-top: 40px;
-      .slick-slider {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        .slick-list {
-          margin: 0 -30px;
-          .singlewrapslider {
-            padding: 0 30px;
-          }
-        }
-        .slick-arrow {
-          position: static;
-          order: 2;
-          transform: inherit;
-          border: 1px solid var(--color4B72B2);
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          margin: 60px 15px 0;
-          &:hover {
-            border-color: var(--black);
-          }
-          &:before {
-            display: none;
-          }
-          &.slick-prev {
-            background: url(${assest.sliderarwson}) no-repeat center;
-            &:hover {
-              background: url(${assest.sliderarwson}) no-repeat center
-                var(--black);
-            }
-          }
-          &.slick-next {
-            background: url(${assest.sliderarwstw}) no-repeat center;
-            &:hover {
-              background: url(${assest.sliderarwstw}) no-repeat center
-                var(--black);
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+// interface categoryList {
+//   allcategory: AllCategoryDtl[];
+// }
+
+interface categoryProps {
+  allcategory: CategoryRoot;
+  catwiseData: AllCatWiseRoot;
+  // productData: CatWiseRoot;
+}
 
 const sliderSettings = {
   arrows: true,
@@ -102,48 +64,102 @@ const sliderSettings = {
   ]
 };
 
-interface categoryList {
-  allcategory: AllCategoryDtl[];
-}
+const settings = {
+  arrows: true,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  infinite: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+};
 
-const Home = ({ allcategory }: categoryList) => {
-  console.log(allcategory, "allcategory");
-  return allcategory ? (
+const Home = ({ allcategory, catwiseData }: categoryProps) => {
+  // console.log(allcategory, "allcategory");
+  return (
     <Wrapper>
       <StyledContainer>
-        <ClientfeedWrapper>
-          <Box className="cientfeedback-sec">
-            <Container fixed>
-              <Box className="clientfed-slider">
-                <Slider {...sliderSettings}>
-                  {Array.isArray(allcategory) &&
-                    allcategory?.map((item, index) => (
-                      <Box className="singlewrapslider" key={index}>
+        {/* <ShopCard /> */}
+
+        <div className={styles.image_slider_container}>
+          <Slider {...sliderSettings}>
+            {allcategory?.all_category_dtls?.map((item, index) => (
+              <Box className="singlewrapslider" key={index}>
+                <SingleCard
+                  img={`${item?.cat_thumbnail as string}`}
+                  name={item?.title}
+                  price={item.slug}
+                  offerpirce={item.slug}
+                  description={item.slug}
+                  prdlink={item.slug}
+                />
+              </Box>
+            ))}
+          </Slider>
+        </div>
+        {catwiseData.all_products?.map((item, i) => {
+          return (
+            <div className={styles.image_slider_container}>
+              <Slider {...settings}>
+                {item?.products.map((product, index) => {
+                  return (
+                    <>
+                      <Box
+                        className="singlewrapslider"
+                        key={index}
+                        sx={{ my: 2, mx: 1 }}
+                      >
                         <SingleCard
-                          cat_thumbnail={`${item?.cat_thumbnail as string}`}
-                          cat_id={item.cat_id}
-                          slug={item.slug}
-                          title={item?.title}
+                          img={product?.product_image_src}
+                          name={product?.product_name}
+                          price={product.product_price}
+                          description={product?.product_short_description}
+                          prdlink={product?.product_link}
+                          offerpirce={product.product_sale_price}
                         />
                       </Box>
-                    ))}
-                </Slider>
-              </Box>
-            </Container>
-          </Box>
-        </ClientfeedWrapper>
+                    </>
+                  );
+                })}
+              </Slider>
+            </div>
+          );
+        })}
       </StyledContainer>
     </Wrapper>
-  ) : null;
+  );
 };
 
 export const getServerSideProps = async () => {
-  const resp = await getCategory();
-  console.log("all", resp);
+  const categoryData = await getCategory();
+  const categorydetailsData = await getCategoryDetails();
+  // const  productData = await getCategoryWiseDetails();
+  console.log("all", categoryData);
 
   return {
-    props: { allcategory: resp.all_category_dtls || [] }
+    props: { allcategory: categoryData, catwiseData: categorydetailsData }
   };
 };
-
 export default Home;

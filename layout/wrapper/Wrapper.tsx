@@ -45,7 +45,7 @@ const Wrapper = (props: wrapperProps) => {
   const projectName = "Shop Filter";
 
   useOnlineStatus();
-
+  
   return (
     <WrapperStyle>
       <Seo

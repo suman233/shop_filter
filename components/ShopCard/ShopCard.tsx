@@ -1,7 +1,7 @@
 import React from "react";
 import { getCategory } from "@/api/functions/shop.api";
 import SingleCard from "@/components/SingleSlider/SingleCard";
-import { AllCategoryDtl } from "@/interface/catresp.interface";
+import { AllCategoryDtl, CategoryRoot } from "@/interface/catresp.interface";
 import assest from "@/json/assest";
 import { Box, Container, styled } from "@mui/material";
 import Slider from "react-slick";
@@ -96,14 +96,14 @@ const sliderSettings = {
   ]
 };
 
-interface categoryList {
-  allcategory: AllCategoryDtl[];
+interface categoryType{
+  allcategory: CategoryRoot
 }
 
-interface categoryList extends React.ComponentProps<typeof Slider> {
-  children: React.ReactNode;
-}
-const ShopCard = ({ children, allcategory }: categoryList) => {
+// interface categoryList extends React.ComponentProps<typeof Slider> {
+//   children: React.ReactNode;
+// }
+const ShopCard = ({ allcategory }: categoryType) => {
   console.log(allcategory, "allcategory");
 
   return allcategory ? (
@@ -111,9 +111,9 @@ const ShopCard = ({ children, allcategory }: categoryList) => {
       <Box className="cientfeedback-sec">
         <Container fixed>
           <Box className="clientfed-slider">
-            <Slider {...sliderSettings, children} >
-              {Array.isArray(allcategory) &&
-                allcategory?.map((item, index) => (
+            <Slider {...sliderSettings  } >
+              {
+                allcategory.all_category_dtls?.map((item, index) => (
                   <Box className="singlewrapslider" key={index}>
                     <SingleCard
                       cat_thumbnail={`${item?.cat_thumbnail as string}`}
@@ -136,7 +136,7 @@ export const getServerSideProps = async () => {
   console.log("all", resp);
 
   return {
-    props: { allcategory: resp.all_category_dtls || [] }
+    props: { allcategory: resp }
   };
 };
 

@@ -15,8 +15,6 @@ const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const theme = createTheme(themeOptions);
 
-
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
