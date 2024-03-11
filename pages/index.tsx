@@ -5,13 +5,14 @@ import {
 } from "@/api/functions/shop.api";
 import Wrapper from "@/layout/wrapper/Wrapper";
 import { Box, Container, Typography, styled } from "@mui/material";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import { CategoryRoot } from "@/interface/catresp.interface";
 import styles from "@/styles/pages/home.module.scss";
 import { AllCatWiseRoot } from "@/interface/allcat.interface";
 import SingleSlider from "@/components/SingleSlider/SingleSlider";
 import ProductCard from "@/components/CardComponent/ProductCard";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -30,6 +31,9 @@ interface categoryProps {
   // productData: CatWiseRoot;
 }
 
+const Slider = dynamic(() => import("react-slick"), {
+  ssr: true
+});
 const sliderSettings = {
   arrows: true,
   slidesToShow: 3,
