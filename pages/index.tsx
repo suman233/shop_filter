@@ -13,6 +13,7 @@ import SingleSlider from "@/components/SingleSlider/SingleSlider";
 import ProductCard from "@/components/CardComponent/ProductCard";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { GetServerSidePropsContext } from "next";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -157,10 +158,14 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const categoryData = await getCategory();
   const categorydetailsData = await getCategoryDetails();
   // const  productData = await getCategoryWiseDetails();
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   return {
     props: { allcategory: categoryData, catwiseData: categorydetailsData }
