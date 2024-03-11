@@ -37,18 +37,18 @@ interface cardProps {
   title: string;
   price: string;
   offerpirce: string;
-  description: string;
   prdlink: string;
 }
 export default function ProductCard(props: cardProps) {
   const router = useRouter();
+  const { img, title, price, offerpirce, prdlink } = props;
   return (
     <SinglewrapcrtFeed>
       <Paper>
         <Box className="mainwrap-singlcrtfeed">
           <Box className="top-partInnrimg" sx={{ m: "auto" }}>
             <Image
-              src={props?.img}
+              src={img}
               width={300}
               height={200}
               style={{ margin: "auto", height: 300 }}
@@ -63,36 +63,36 @@ export default function ProductCard(props: cardProps) {
                 fontSize: "16px",
                 "&:hover": { color: "blue" }
               }}
-              onClick={() => router.push(`${props.prdlink}`)}
+              onClick={() => router.push(`${prdlink}`)}
             >
               {/* <Link
                 href={`${props.prdlink}`}
                 style={{ textDecoration: "none", color: "black" }}
               > */}
-              {props?.title}
+              {title}
               {/* </Link> */}
             </Typography>
           </Box>
           <Box>
-            {props.offerpirce ? (
+            {offerpirce ? (
               <>
                 <Button
                   disabled
                   sx={{ mx: 2, color: "black", backgroundColor: "gray" }}
                 >
-                  ${props.price}
+                  ${price}
                 </Button>
                 <Button
                   sx={{ mx: 2, color: "black", backgroundColor: "lightgray" }}
                 >
-                  ${props?.offerpirce}
+                  ${offerpirce}
                 </Button>
               </>
             ) : (
               <Button
                 sx={{ mx: 2, color: "black", backgroundColor: "lightgray" }}
               >
-                ${props.price}
+                ${price}
               </Button>
             )}
           </Box>

@@ -95,8 +95,6 @@ const settings = {
 };
 
 const Home = ({ allcategory, catwiseData }: categoryProps) => {
-  console.log(allcategory, "allcategory");
-  console.log(catwiseData, "categorywisedata");
   const router = useRouter();
 
   return (
@@ -109,7 +107,6 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
             {allcategory?.all_category_dtls?.map((item, index) => (
               <Box
                 className="singlewrapslider"
-                key={index}
                 onClick={() => router.push(`/categorydetails/${item?.slug}`)}
               >
                 <SingleSlider
@@ -136,22 +133,20 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
               <Slider {...settings}>
                 {item?.products?.map((product, index) => {
                   return (
-                    <>
+                    
                       <Box
                         className="singlewrapslider"
-                        key={index}
                         sx={{ my: 2, mx: 1 }}
                       >
                         <ProductCard
                           img={product?.product_meta_data[3]?.value?.image}
                           title={`${product?.product_name.slice(0, 35)}...`}
                           price={product.product_price}
-                          description={product?.product_short_description}
                           prdlink={product?.product_link}
                           offerpirce={product.product_sale_price}
                         />
                       </Box>
-                    </>
+                    
                   );
                 })}
               </Slider>
@@ -167,7 +162,6 @@ export const getServerSideProps = async () => {
   const categoryData = await getCategory();
   const categorydetailsData = await getCategoryDetails();
   // const  productData = await getCategoryWiseDetails();
-  console.log("all", categoryData);
 
   return {
     props: { allcategory: categoryData, catwiseData: categorydetailsData }

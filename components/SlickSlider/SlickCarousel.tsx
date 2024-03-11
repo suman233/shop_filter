@@ -51,14 +51,11 @@ const SlickCarousel = ({ children, allcategory }: catItemProps) => {
     <div className={styles.image_slider_container}>
       <Slider {...sliderSettings}>
         {allcategory?.all_category_dtls?.map((item, index) => (
-          <Box className="singlewrapslider" key={index}>
+          <Box className="singlewrapslider" >
             <SingleCard
               img={`${item?.cat_thumbnail as string}`}
               name={item.title}
-              description={item.slug}
-              price={item?.slug}
-              offerpirce="20%"
-              prdlink={item.slug}
+              
             />
             {children}
           </Box>
@@ -70,7 +67,6 @@ const SlickCarousel = ({ children, allcategory }: catItemProps) => {
 
 export const getServerSideProps = async () => {
   const resp = await getCategory();
-  console.log("all", resp);
 
   return {
     props: { allcategory: resp }

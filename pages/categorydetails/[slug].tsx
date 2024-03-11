@@ -47,9 +47,7 @@ const settings = {
 const CategoryWiseProducts = ({catwiseData}: Props) => {
   const router = useRouter();
   const { slug } = router.query;
-  console.log("slug", slug);
   const catdata=catwiseData.all_products.filter((item)=>item.slug===slug? item : null)
-  console.log(catdata);
   
   return (
     <Container>
@@ -70,22 +68,20 @@ const CategoryWiseProducts = ({catwiseData}: Props) => {
               <Slider {...settings}>
                 {item?.products?.map((product, index) => {
                   return (
-                    <>
+                    
                       <Box
                         className="singlewrapslider"
-                        key={index}
                         sx={{ my: 2, mx: 1 }}
                       >
                         <ProductCard
                           img={product?.product_meta_data[3]?.value?.image}
                           title={product?.product_name}
                           price={product.product_price}
-                          description={product?.product_short_description}
                           prdlink={product?.product_link}
                           offerpirce={product.product_sale_price}
                         />
                       </Box>
-                    </>
+                    
                   );
                 })}
               </Slider>

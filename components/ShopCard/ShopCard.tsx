@@ -1,10 +1,10 @@
 import React from "react";
 import { getCategory } from "@/api/functions/shop.api";
-import SingleCard from "@/components/SingleSlider/SingleCard";
 import { AllCategoryDtl, CategoryRoot } from "@/interface/catresp.interface";
 import assest from "@/json/assest";
 import { Box, Container, styled } from "@mui/material";
 import Slider from "react-slick";
+import SingleSlider from "../SingleSlider/SingleSlider";
 
 const ShopCardWrapper = styled(Box)`
   padding: 80px 0;
@@ -104,7 +104,6 @@ interface categoryType{
 //   children: React.ReactNode;
 // }
 const ShopCard = ({ allcategory }: categoryType) => {
-  console.log(allcategory, "allcategory");
 
   return allcategory ? (
     <ShopCardWrapper>
@@ -114,12 +113,11 @@ const ShopCard = ({ allcategory }: categoryType) => {
             <Slider {...sliderSettings  } >
               {
                 allcategory.all_category_dtls?.map((item, index) => (
-                  <Box className="singlewrapslider" key={index}>
-                    <SingleCard
-                      cat_thumbnail={`${item?.cat_thumbnail as string}`}
-                      cat_id={item.cat_id}
-                      slug={item.slug}
-                      title={item?.title}
+                  <Box className="singlewrapslider" >
+                    <SingleSlider
+                      img={`${item?.cat_thumbnail as string}`}
+                      
+                      name={item?.title}
                     />
                   </Box>
                 ))}
@@ -133,7 +131,6 @@ const ShopCard = ({ allcategory }: categoryType) => {
 
 export const getServerSideProps = async () => {
   const resp = await getCategory();
-  console.log("all", resp);
 
   return {
     props: { allcategory: resp }
