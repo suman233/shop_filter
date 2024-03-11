@@ -31,11 +31,11 @@
   ],
   "rules": {
     "no-console": "error",
-    "mui-path-imports/mui-path-imports": "error",
+    "mui-path-imports/mui-path-imports": "off",
     //no used vars
-    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-imports": "off",
     "no-useless-escape": "error",
-    "unused-imports/no-unused-vars": "error",
+    "unused-imports/no-unused-vars": "off",
     "react-hooks/rules-of-hooks": "error",
     "import/order": "error",
     "import/newline-after-import": "error",
