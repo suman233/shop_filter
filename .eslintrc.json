@@ -162,6 +162,7 @@
     "require-unicode-regexp": "off",
     "vars-on-top": "off",
     "wrap-iife": "off",
-    "yoda": "off"
+    "yoda": "off",
+    "react/jsx-no-useless-fragment": "off"
   }
 }
