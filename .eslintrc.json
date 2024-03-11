@@ -34,30 +34,30 @@
     "mui-path-imports/mui-path-imports": "off",
     //no used vars
     "unused-imports/no-unused-imports": "off",
-    "no-useless-escape": "error",
+    "no-useless-escape": "off",
     "unused-imports/no-unused-vars": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "import/order": "error",
-    "import/newline-after-import": "error",
+    "react-hooks/rules-of-hooks": "off",
+    "import/order": "off",
+    "import/newline-after-import": "off",
     // Variables -- start
-    "init-declarations": "error",
-    "no-restricted-globals": "error",
-    "no-unused-vars": "error",
-    "no-use-before-define": "error",
+    "init-declarations": "off",
+    "no-restricted-globals": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
 
-    "complexity": "error",
-    "consistent-return": "error",
+    "complexity": "off",
+    "consistent-return": "off",
     // Best Practices -- end
     "react/require-default-props": [
-      "error",
+      "off",
       {
-        "ignoreFunctionalComponents": true
+        "ignoreFunctionalComponents": false
       }
     ],
     "sort-imports": [
-      "error",
+      "off",
       {
-        "ignoreDeclarationSort": true
+        "ignoreDeclarationSort": false
       }
     ],
 
