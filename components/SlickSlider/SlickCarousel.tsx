@@ -4,7 +4,7 @@ import styles from "../../styles/pages/home.module.scss";
 import { getCategory } from "@/api/functions/shop.api";
 import { CategoryRoot } from "@/interface/catresp.interface";
 import { Box } from "@mui/material";
-import SingleCard from "../SingleSlider/SingleCard";
+import SingleCard from "../SingleSlider/SingleSlider";
 
 const sliderSettings = {
   arrows: true,

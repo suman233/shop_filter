@@ -4,22 +4,25 @@ import {
   getCategoryWiseDetails
 } from "@/api/functions/shop.api";
 import ShopCard from "@/components/ShopCard/ShopCard";
-import SingleCard from "@/components/SingleSlider/SingleCard";
 import SlickCarousel from "@/components/SlickSlider/SlickCarousel";
 import { AllCategoryDtl } from "@/interface/catresp.interface";
 import assest from "@/json/assest";
 import Wrapper from "@/layout/wrapper/Wrapper";
-import { Box, Container, styled } from "@mui/material";
+import { Box, Container, Typography, styled } from "@mui/material";
 import Slider from "react-slick";
 import { CategoryRoot } from "@/interface/catresp.interface";
 import styles from "@/styles/pages/home.module.scss";
 import { AllCatWiseRoot } from "@/interface/allcat.interface";
 import { CatWiseRoot } from "@/interface/products.interface";
+import SingleSlider from "@/components/SingleSlider/SingleSlider";
+import ProductCard from "@/components/CardComponent/ProductCard";
+import { useRouter } from "next/router";
 
 const StyledContainer = styled("section")`
   margin: auto;
   margin-top: 20px;
   padding: 20px;
+  background: lightblue;
 `;
 
 // interface categoryList {
@@ -66,8 +69,8 @@ const sliderSettings = {
 
 const settings = {
   arrows: true,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 4,
+  slidesToScroll: 4,
   infinite: true,
   responsive: [
     {
@@ -97,7 +100,10 @@ const settings = {
 };
 
 const Home = ({ allcategory, catwiseData }: categoryProps) => {
-  // console.log(allcategory, "allcategory");
+  console.log(allcategory, "allcategory");
+  console.log(catwiseData, "categorywisedata");
+  const router = useRouter();
+
   return (
     <Wrapper>
       <StyledContainer>
@@ -106,14 +112,14 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
         <div className={styles.image_slider_container}>
           <Slider {...sliderSettings}>
             {allcategory?.all_category_dtls?.map((item, index) => (
-              <Box className="singlewrapslider" key={index}>
-                <SingleCard
+              <Box
+                className="singlewrapslider"
+                key={index}
+                onClick={() => router.push(`/categorydetails/${item?.slug}`)}
+              >
+                <SingleSlider
                   img={`${item?.cat_thumbnail as string}`}
                   name={item?.title}
-                  price={item.slug}
-                  offerpirce={item.slug}
-                  description={item.slug}
-                  prdlink={item.slug}
                 />
               </Box>
             ))}
@@ -122,8 +128,18 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
         {catwiseData.all_products?.map((item, i) => {
           return (
             <div className={styles.image_slider_container}>
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  my: 2,
+                  color: "black"
+                }}
+              >
+                {item?.title}
+              </Typography>
               <Slider {...settings}>
-                {item?.products.map((product, index) => {
+                {item?.products?.map((product, index) => {
                   return (
                     <>
                       <Box
@@ -131,9 +147,9 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
                         key={index}
                         sx={{ my: 2, mx: 1 }}
                       >
-                        <SingleCard
-                          img={product?.product_image_src}
-                          name={product?.product_name}
+                        <ProductCard
+                          img={product?.product_meta_data[3]?.value?.image}
+                          title={`${product?.product_name.slice(0, 35)}...`}
                           price={product.product_price}
                           description={product?.product_short_description}
                           prdlink={product?.product_link}

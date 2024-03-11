@@ -32,40 +32,34 @@ const SinglewrapcrtFeed = styled(Box)`
     }
   }
 `;
-interface cardProps {
+interface sliderProps {
   img: string;
   name: string;
-  price: string;
-  offerpirce: string;
-  description: string;
-  prdlink: string;
+  
 }
-export default function SingleCard(props: cardProps) {
+export default function SingleSlider(props: sliderProps) {
   const router = useRouter();
   return (
     <SinglewrapcrtFeed>
-      <Paper>
+      <Paper sx={{mx:2}}>
         <Box className="mainwrap-singlcrtfeed">
           <Box className="top-partInnrimg" sx={{ m: "auto" }}>
             <Image
               src={props?.img || ""}
               width={300}
               height={200}
-              style={{ margin: "auto" }}
+              style={{ margin: "auto", height:300 }}
               alt="product image"
             />
           </Box>
-          <Box>{/* <Typography>{props.prdlink}</Typography> */}</Box>
           <Box className="bottom-partTxt" sx={{ textAlign: "center" }}>
             <Typography
               variant="caption"
               sx={{ color: "black", fontSize: "16px" }}
-              onClick={() => router.push(`${props.prdlink}`)}
             >
               {props?.name}
             </Typography>
           </Box>
-          <Typography>${props.price}</Typography>
         </Box>
       </Paper>
     </SinglewrapcrtFeed>

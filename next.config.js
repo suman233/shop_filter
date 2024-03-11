@@ -17,7 +17,23 @@ module.exports = withPWA({
     includePaths: [path.join(__dirname, "styles")]
   },
   images: {
-    domains: ["career-utility.dedicateddevelopers.us", "shop.giftlist.com"]
+    domains: [
+      "career-utility.dedicateddevelopers.us",
+      "shop.giftlist.com",
+      "images.bloomingdalesassets.com",
+      "storage.googleapis.com",
+      "i5.walmartimages.com",
+      "media.kohlsimg.com",
+      "assets.basspro.com",
+      "ak1.ostkcdn.com",
+      "target.scene7.com",
+      "prod-cdn-01.storenvy.com",
+      "pisces.bbystatic.com",
+      "store.storeimages.cdn-apple.com",
+      "www.worldmarket.com",
+      "images.thdstatic.com",
+      "cdn.shopify.com",
+    ]
   },
   swcMinify: true,
   compress: true,
