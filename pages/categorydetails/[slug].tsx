@@ -8,87 +8,89 @@ import React from "react";
 import styles from "@/styles/pages/home.module.scss";
 import Slider from "react-slick";
 import ProductCard from "@/components/CardComponent/ProductCard";
+import Wrapper from "@/layout/wrapper/Wrapper";
 
 type Props = {
   catwiseData: AllCatWiseRoot;
 };
 const settings = {
-    arrows: true,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    infinite: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false
-        }
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
+  arrows: true,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  infinite: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: false
       }
-    ]
-  };
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+};
 
-const CategoryWiseProducts = ({catwiseData}: Props) => {
+const CategoryWiseProducts = ({ catwiseData }: Props) => {
   const router = useRouter();
   const { slug } = router.query;
-  const catdata=catwiseData.all_products.filter((item)=>item.slug===slug? item : null)
-  
+  const catdata = catwiseData.all_products.filter((item) =>
+    item.slug === slug ? item : null
+  );
+
   return (
-    <Container>
-      <Typography>{slug}</Typography>
-      {catdata?.map((item, i) => {
-          return (
-            <div className={styles.image_slider_container}>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  my: 2,
-                  color: "black"
-                }}
-              >
-                {item?.title}
-              </Typography>
-              <Slider {...settings}>
-                {item?.products?.map((product, index) => {
-                  return (
-                    
-                      <Box
-                        className="singlewrapslider"
-                        sx={{ my: 2, mx: 1 }}
-                      >
+    <Wrapper>
+      <section style={{ background: "lightblue" }}>
+        <Container sx={{}}>
+          {/* <Typography>{slug}</Typography> */}
+          {catdata?.map((item, i) => {
+            return (
+              <div className={styles.image_slider_container}>
+                <Typography
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    my: 2,
+                    color: "black"
+                  }}
+                >
+                  {item?.title}
+                </Typography>
+                <Slider {...settings}>
+                  {item?.products?.map((product, index) => {
+                    return (
+                      <Box className="singlewrapslider" sx={{ my: 2, mx: 1 }}>
                         <ProductCard
                           img={product?.product_meta_data[3]?.value?.image}
-                          title={product?.product_name}
+                          title={`${product?.product_name.slice(0, 10)}...`}
                           price={product.product_price}
                           prdlink={product?.product_link}
                           offerpirce={product.product_sale_price}
                         />
                       </Box>
-                    
-                  );
-                })}
-              </Slider>
-            </div>
-          );
-        })}
-    </Container>
+                    );
+                  })}
+                </Slider>
+              </div>
+            );
+          })}
+        </Container>
+      </section>
+    </Wrapper>
   );
 };
 

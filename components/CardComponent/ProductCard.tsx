@@ -44,7 +44,7 @@ export default function ProductCard(props: cardProps) {
   const { img, title, price, offerpirce, prdlink } = props;
   return (
     <SinglewrapcrtFeed>
-      <Paper>
+      <Paper sx={{ mx: 2 }} elevation={6}>
         <Box className="mainwrap-singlcrtfeed">
           <Box className="top-partInnrimg" sx={{ m: "auto" }}>
             <Image

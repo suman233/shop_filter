@@ -133,20 +133,15 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
               <Slider {...settings}>
                 {item?.products?.map((product, index) => {
                   return (
-                    
-                      <Box
-                        className="singlewrapslider"
-                        sx={{ my: 2, mx: 1 }}
-                      >
-                        <ProductCard
-                          img={product?.product_meta_data[3]?.value?.image}
-                          title={`${product?.product_name.slice(0, 35)}...`}
-                          price={product.product_price}
-                          prdlink={product?.product_link}
-                          offerpirce={product.product_sale_price}
-                        />
-                      </Box>
-                    
+                    <Box className="singlewrapslider" sx={{ my: 2, mx: 1 }}>
+                      <ProductCard
+                        img={product?.product_meta_data[3]?.value?.image}
+                        title={`${product?.product_name.slice(0, 35)}...`}
+                        price={product.product_price}
+                        prdlink={product?.product_link}
+                        offerpirce={product.product_sale_price}
+                      />
+                    </Box>
                   );
                 })}
               </Slider>
