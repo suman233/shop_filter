@@ -1,5 +1,7 @@
-import { Button, Paper, Typography } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import { Box, styled } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 const SinglewrapcrtFeed = styled(Box)`

@@ -3,17 +3,12 @@ import {
   getCategoryDetails,
   getCategoryWiseDetails
 } from "@/api/functions/shop.api";
-import ShopCard from "@/components/ShopCard/ShopCard";
-import SlickCarousel from "@/components/SlickSlider/SlickCarousel";
-import { AllCategoryDtl } from "@/interface/catresp.interface";
-import assest from "@/json/assest";
 import Wrapper from "@/layout/wrapper/Wrapper";
 import { Box, Container, Typography, styled } from "@mui/material";
 import Slider from "react-slick";
 import { CategoryRoot } from "@/interface/catresp.interface";
 import styles from "@/styles/pages/home.module.scss";
 import { AllCatWiseRoot } from "@/interface/allcat.interface";
-import { CatWiseRoot } from "@/interface/products.interface";
 import SingleSlider from "@/components/SingleSlider/SingleSlider";
 import ProductCard from "@/components/CardComponent/ProductCard";
 import { useRouter } from "next/router";

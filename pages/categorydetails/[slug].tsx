@@ -1,6 +1,8 @@
 import { getCategoryDetails } from "@/api/functions/shop.api";
 import { AllCatWiseRoot } from "@/interface/allcat.interface";
-import { Box, Container, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "@/styles/pages/home.module.scss";
