@@ -9,6 +9,7 @@ import styles from "@/styles/pages/home.module.scss";
 import Slider from "react-slick";
 import ProductCard from "@/components/CardComponent/ProductCard";
 import Wrapper from "@/layout/wrapper/Wrapper";
+import { Button } from "@mui/material";
 
 type Props = {
   catwiseData: AllCatWiseRoot;
@@ -55,6 +56,23 @@ const CategoryWiseProducts = ({ catwiseData }: Props) => {
   return (
     <Wrapper>
       <section style={{ background: "lightblue" }}>
+        <Container>
+          {catwiseData.all_products.map((category) => {
+            return (
+              <>
+                {category?.slug === slug ? (
+                  <Button sx={{ mx: 2, my: 1 }} variant="contained" disabled>
+                    {category?.title}
+                  </Button>
+                ) : (
+                  <Button sx={{ mx: 2, my: 1 }} variant="contained" onClick={()=>router.push(`${category.slug}`)}>
+                    {category?.title} 
+                  </Button>
+                )}
+              </>
+            );
+          })}
+        </Container>
         <Container sx={{}}>
           {/* <Typography>{slug}</Typography> */}
           {catdata?.map((item, i) => {

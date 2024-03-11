@@ -162,10 +162,10 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const categoryData = await getCategory();
   const categorydetailsData = await getCategoryDetails();
   // const  productData = await getCategoryWiseDetails();
-  context.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
+  // context.res.setHeader(
+  //   "Cache-Control",
+  //   "public, s-maxage=10, stale-while-revalidate=59"
+  // );
 
   return {
     props: { allcategory: categoryData, catwiseData: categorydetailsData }
