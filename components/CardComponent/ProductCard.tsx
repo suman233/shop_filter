@@ -61,7 +61,7 @@ export default function ProductCard(props: cardProps) {
               sx={{
                 color: "black",
                 fontSize: "16px",
-                "&:hover": { color: "blue" }
+                "&:hover": { color: "#347589" }
               }}
               onClick={() => router.push(`${prdlink}`)}
             >

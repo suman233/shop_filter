@@ -1,4 +1,7 @@
-import { getCategoryDetails } from "@/api/functions/shop.api";
+import {
+  getCategoryDetails,
+  getCategoryWiseDetails
+} from "@/api/functions/shop.api";
 import { AllCatWiseRoot } from "@/interface/allcat.interface";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -9,10 +12,11 @@ import styles from "@/styles/pages/home.module.scss";
 import Slider from "react-slick";
 import ProductCard from "@/components/CardComponent/ProductCard";
 import Wrapper from "@/layout/wrapper/Wrapper";
-import { Button } from "@mui/material";
+import { Button, TextField, inputLabelClasses } from "@mui/material";
+import { CatWiseRoot } from "@/interface/products.interface";
 
 type Props = {
-  catwiseData: AllCatWiseRoot;
+  catwisePrdData: CatWiseRoot;
 };
 const settings = {
   arrows: true,
@@ -46,10 +50,10 @@ const settings = {
   ]
 };
 
-const CategoryWiseProducts = ({ catwiseData }: Props) => {
+const CategoryWiseProducts = ({ catwisePrdData }: Props) => {
   const router = useRouter();
   const { slug } = router.query;
-  const catdata = catwiseData.all_products.filter((item) =>
+  const catdata = catwisePrdData.filter((item) =>
     item.slug === slug ? item : null
   );
 
@@ -57,24 +61,58 @@ const CategoryWiseProducts = ({ catwiseData }: Props) => {
     <Wrapper>
       <section style={{ background: "lightblue" }}>
         <Container>
-          {catwiseData.all_products.map((category) => {
-            return (
-              <>
-                {category?.slug === slug ? (
-                  <Button sx={{ mx: 2, my: 1 }} variant="contained" disabled>
-                    {category?.title}
-                  </Button>
-                ) : (
-                  <Button sx={{ mx: 2, my: 1 }} variant="contained" onClick={()=>router.push(`${category.slug}`)}>
-                    {category?.title} 
-                  </Button>
-                )}
-              </>
-            );
-          })}
+          <TextField
+            id="filled-size-normal"
+            variant="outlined"
+            placeholder="Search here"
+            sx={{
+              mr: 2,
+              mt: 1,
+              backgroundColor: "#f2f6f7",
+              color: "black",
+              width: "90%"
+            }}
+            InputLabelProps={{
+              sx: {
+                color: "black",
+                [`&.${inputLabelClasses.shrink}`]: {
+                  color: "white"
+                }
+              }
+            }}
+            InputProps={{
+              sx: {
+                color: "black"
+              }
+            }}
+          />
+          <Button variant="contained" sx={{ m: 1 }}>
+            Search
+          </Button>
+          <Box>
+            {catwisePrdData?.map((category) => {
+              return (
+                <>
+                  {category?.slug === slug ? (
+                    <Button sx={{ mx: 2, my: 1 }} variant="contained" disabled>
+                      {category?.title}
+                    </Button>
+                  ) : (
+                    <Button
+                      sx={{ mx: 2, my: 1 }}
+                      variant="contained"
+                      color="info"
+                      onClick={() => router.push(`${category.slug}`)}
+                    >
+                      {category?.title}
+                    </Button>
+                  )}
+                </>
+              );
+            })}
+          </Box>
         </Container>
         <Container sx={{}}>
-          {/* <Typography>{slug}</Typography> */}
           {catdata?.map((item, i) => {
             return (
               <div className={styles.image_slider_container}>
@@ -113,11 +151,11 @@ const CategoryWiseProducts = ({ catwiseData }: Props) => {
 };
 
 export const getServerSideProps = async () => {
-  const categorydetailsData = await getCategoryDetails();
-  // const  productData = await getCategoryWiseDetails();
+  // const categorydetailsData = await getCategoryDetails();
+  const productData = await getCategoryWiseDetails();
 
   return {
-    props: { catwiseData: categorydetailsData }
+    props: { catwisePrdData: productData }
   };
 };
 

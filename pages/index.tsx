@@ -14,6 +14,7 @@ import ProductCard from "@/components/CardComponent/ProductCard";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { GetServerSidePropsContext } from "next";
+import Link from "next/link";
 
 const StyledContainer = styled("section")`
   margin: auto;
@@ -110,15 +111,17 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
         <div className={styles.image_slider_container}>
           <Slider {...sliderSettings}>
             {allcategory?.all_category_dtls?.map((item, index) => (
-              <Box
-                className="singlewrapslider"
-                onClick={() => router.push(`/categorydetails/${item?.slug}`)}
-              >
-                <SingleSlider
-                  img={`${item?.cat_thumbnail as string}`}
-                  name={item?.title}
-                />
-              </Box>
+              <Link href={`/categorydetails/${item?.slug}`}>
+                <Box
+                  className="singlewrapslider"
+                  // onClick={() => router.push(`/categorydetails/${item?.slug}`)}
+                >
+                  <SingleSlider
+                    img={`${item?.cat_thumbnail as string}`}
+                    name={item?.title}
+                  />
+                </Box>
+              </Link>
             ))}
           </Slider>
         </div>
@@ -158,7 +161,9 @@ const Home = ({ allcategory, catwiseData }: categoryProps) => {
   );
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const categoryData = await getCategory();
   const categorydetailsData = await getCategoryDetails();
   // const  productData = await getCategoryWiseDetails();
